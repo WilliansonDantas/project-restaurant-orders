@@ -43,7 +43,19 @@ class TrackOrders:
         return neverOrders
 
     def get_days_never_visited_per_customer(self, customer):
-        pass
+        allDays = set()
+        ordersDays = set()
+        ordersList = self.orders
+
+        for day in ordersList:
+            allDays.add(day['day'])
+
+        for item in ordersList:
+            if item['customer'] == customer:
+                ordersDays.add(item['day'])
+
+        daysNeverVisited = allDays - ordersDays
+        return daysNeverVisited
 
     def get_busiest_day(self):
         busiestDay = {}
