@@ -11,7 +11,7 @@ def analyze_log(path_to_file):
             data = []
             lines = file.readlines()
             for line in lines:
-                return data.append(line.strip().split(','))
+                data.append(line.strip().split(','))
     except FileNotFoundError:
         return sys.stderr.write(f"Arquivo inexistente: '{path_to_file}'")
     
