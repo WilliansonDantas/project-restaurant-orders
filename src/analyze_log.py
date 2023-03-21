@@ -15,56 +15,32 @@ def analyze_log(path_to_file):
     except FileNotFoundError:
         return sys.stderr.write(f"Arquivo inexistente: '{path_to_file}'")
     
-    print(data)
     maria_orders_make = {}
     arnaldo_count = 0
     joao_orders_food = set()
     joao_days = set()
-
-    customers = set()
-    snacks = set()
-    allDays = set()
+    menu = set()
+    days = set()
 
     for item in data:
-        customers.add(item[0])
-        snacks.add(item[1])
-        allDays.add(item[2])
-
-    for customer in customers:
-        if customer == 'maria':
-            for snack in snacks:
-                if snack in maria_orders_make:
-                    maria_orders_make[snack] += 1
-                else:
-                    maria_orders_make[snack] = 1
-                
-    for customer in customers:
-        if customer == 'arnaldo':
-            for snack in snacks:
-                if snack == 'hamburguer':
-                    arnaldo_count += 1
-
-    for customer in customers:
-        if customer == 'joao':
+        menu.add(item[1])
+        days.add(item[2])
+        if item[0] == 'maria' and item[1] in maria_orders_make:
+            maria_orders_make[item[1]] += 1
+        if item[0] == 'maria' and item[1] not in maria_orders_make:
+            maria_orders_make[item[1]] = 1
+        if item[0] == 'arnaldo' and item[1] == 'hamburguer':
+            arnaldo_count += 1
+        if item[0] == "joao":
             joao_orders_food.add(item[1])
-    for dayD in allDays:
-            joao_days.add(dayD)
+            joao_days.add(item[2])
 
-    # print(maria_orders_make)
     maria_food_favorite = max(maria_orders_make, key=lambda chave: maria_orders_make[chave])
 
-    menu = set()
-    for order in snacks:
-        menu.add(order[1])
     joao_never_order = menu - joao_orders_food
-    # print(joao_never_order)
     joao_never_order_sorted = ', '.join(sorted(joao_never_order))
 
-    day = set()
-    for order in snacks:
-        day.add(order[2])
-    joao_day_never_visited = day - joao_days
-    # print(joao_day_never_visited)
+    joao_day_never_visited = days - joao_days
     joao_day_never_visited_sorted = ', '.join(sorted(joao_day_never_visited))
 
     with open('data/mkt_campaign.txt', 'w') as f:
