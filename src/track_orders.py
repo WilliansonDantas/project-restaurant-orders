@@ -15,7 +15,17 @@ class TrackOrders:
         self.orders.append(newOrder)
 
     def get_most_ordered_dish_per_customer(self, customer):
-        pass
+        orderedDishPerCustomer = {}
+        ordersList = self.orders
+
+        for item in ordersList:
+            if item['order'] in orderedDishPerCustomer:
+                orderedDishPerCustomer[item['order']] += 1
+            else:
+                orderedDishPerCustomer[item['order']] = 1
+        orderedFavorite = max(orderedDishPerCustomer,
+                              key=lambda chave: orderedDishPerCustomer[chave])
+        return orderedFavorite
 
     def get_never_ordered_per_customer(self, customer):
         pass
