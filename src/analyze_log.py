@@ -9,12 +9,11 @@ def analyze_log(path_to_file):
     try:
         with open(path_to_file, 'r') as file:
             data = []
-            lines = file.readlines()
-            for line in lines:
+            for line in file:
                 data.append(line.strip().split(','))
     except FileNotFoundError:
         return sys.stderr.write(f"Arquivo inexistente: '{path_to_file}'")
-    
+
     maria_orders_make = {}
     arnaldo_count = 0
     joao_orders_food = set()
@@ -35,7 +34,8 @@ def analyze_log(path_to_file):
             joao_orders_food.add(item[1])
             joao_days.add(item[2])
 
-    maria_food_favorite = max(maria_orders_make, key=lambda chave: maria_orders_make[chave])
+    maria_food_favorite = max(maria_orders_make,
+                              key=lambda chave: maria_orders_make[chave])
 
     joao_never_order = menu - joao_orders_food
     joao_never_order_sorted = ', '.join(sorted(joao_never_order))
