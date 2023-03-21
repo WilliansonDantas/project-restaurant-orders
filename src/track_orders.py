@@ -43,7 +43,7 @@ class TrackOrders:
             else:
                 busiestDay[item['day']] = 1
         busiestDayMax = max(busiestDay,
-                              key=lambda chave: busiestDay[chave])
+                            key=lambda chave: busiestDay[chave])
         return busiestDayMax
 
     def get_least_busy_day(self):
