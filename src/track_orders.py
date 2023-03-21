@@ -34,7 +34,17 @@ class TrackOrders:
         pass
 
     def get_busiest_day(self):
-        pass
+        busiestDay = {}
+        ordersList = self.orders
+
+        for item in ordersList:
+            if item['day'] in busiestDay:
+                busiestDay[item['day']] += 1
+            else:
+                busiestDay[item['day']] = 1
+        busiestDayMax = max(busiestDay,
+                              key=lambda chave: busiestDay[chave])
+        return busiestDayMax
 
     def get_least_busy_day(self):
         pass
