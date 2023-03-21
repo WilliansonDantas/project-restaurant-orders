@@ -80,5 +80,5 @@ class TrackOrders:
             else:
                 dayVisited[item['day']] = 1
         dayVisitedMin = min(dayVisited,
-                              key=lambda chave: dayVisited[chave])
+                            key=lambda chave: dayVisited[chave])
         return dayVisitedMin
